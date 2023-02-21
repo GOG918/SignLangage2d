@@ -71,15 +71,7 @@ public class Alphabet : MonoBehaviour
             Finish.SetActive(true);
             FinishScore.text = Score.text;
         }
-        if (suivantText.text == "suivant")
-        {
-            Play.onClick.AddListener(() => Mystart(0, 0, 0, 0, 0, 0));
-            suivant.onClick.AddListener(() => Mystart(0, 0, 0, 0, 0, 0));
-            button1.onClick.AddListener(() => ButtonClick(button1));
-            button2.onClick.AddListener(() => ButtonClick(button2));
-            button3.onClick.AddListener(() => ButtonClick(button3));
-            suivant.interactable = false;
-        }
+        
     }
     
     public void Mystart(int j,int  k, int l,int randomIndexAlphabet,int randomValue1, int randomValue2)
