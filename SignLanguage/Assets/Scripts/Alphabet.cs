@@ -31,6 +31,8 @@ public class Alphabet : MonoBehaviour
     private int score;
     private IEnumerator coroutine;
     private bool Gamefinish;
+    private Button correctButton;
+    private Color ButtonInitColor= Color.white;
 
     // Start is called before the first frame update
 
@@ -51,27 +53,27 @@ public class Alphabet : MonoBehaviour
             button2.interactable = false;
             button3.interactable = false;
             suivant.interactable = true;
-            suivantText.text = "Terminer";
+            //suivantText.text = "Terminer";
         }
-        if (Score.text == "130")
+        if (Score.text == "100" || AlphabetUse.Count == 26)
         {
             suivantText.text = "Terminer";
-        }
-        
+            AlphabetUse.Clear();
+        }  
     }
 
     public void MystartOnclick()
     {
+        Buttoncolorinit(button1, button2, button3);
         if (suivantText.text == "suivant") {
             Mystart(0, 0, 0, 0, 0, 0);
-            Debug.Log(suivantText.text);
         }else if(suivantText.text == "Terminer")
         {
             Finish.SetActive(true);
             FinishScore.text = Score.text;
             suivantText.text = "suivant";
-            Debug.Log(suivantText.text);
         }
+        Debug.Log(AlphabetUse.Count);
     }
 
     public void ChoiceButton(Button choiceButton)
@@ -79,13 +81,23 @@ public class Alphabet : MonoBehaviour
         if (suivantText.text == "suivant")
         {
             ButtonClick(choiceButton);
+            Buttoncolor(choiceButton);
             suivant.interactable = false;
         }
         
     }
+
     public void home()
     {
-        Mystart(0, 0, 0, 0, 0, 0);
+        //Mystart(0, 0, 0, 0, 0, 0);
+        score = 0;
+        Score.text = score.ToString();
+        suivantText.text = "suivant";
+    }
+
+    public void exit()
+    {
+        //Mystart(0, 0, 0, 0, 0, 0);
         score = 0;
         Score.text = score.ToString();
         suivantText.text = "suivant";
@@ -132,6 +144,19 @@ public class Alphabet : MonoBehaviour
         button1.image.sprite = Images[tab[l]];
         button2.image.sprite = Images[tab[j]];
         button3.image.sprite = Images[tab[k]];
+
+        if (button1.image.sprite.name == AlphabetText.text)
+        {
+            correctButton = button1;
+        }
+        else if(button2.image.sprite.name == AlphabetText.text)
+        {
+            correctButton = button2;
+        }
+        else
+        {
+            correctButton = button3;
+        }
     }
 
     public void ButtonClick(Button buttonclicked)
@@ -150,4 +175,31 @@ public class Alphabet : MonoBehaviour
         }
     }
 
-}
+    public void Buttoncolor(Button buttonclicked)
+    {
+        Color red = Color.red;
+        Color green = Color.green;
+
+        if (buttonclicked == correctButton)
+        {
+            buttonclicked.image.color = green;
+        }
+        else
+        {
+            buttonclicked.image.color = red;
+            correctButton.image.color = green;
+        }
+    }
+
+    public void Buttoncolorinit(Button button1, Button button2, Button button3)
+    {
+        button1.image.color = ButtonInitColor;
+        button2.image.color = ButtonInitColor;
+        button3.image.color = ButtonInitColor;
+    }
+
+    public void initUseAlphabet()
+    {
+        AlphabetUse.Clear();
+    }
+ }
